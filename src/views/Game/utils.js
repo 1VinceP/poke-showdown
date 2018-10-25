@@ -124,6 +124,9 @@ export function getTypeModifier( defenderTypes, attackType) {
         // Find strengths
         if( resistantAgainst[type].find( t => t === attackType ) ) {
             bonus -= 0.5;
+            if( bonus === 0 ) {
+                bonus = 0.25
+            }
         };
 
         // Find if no effect
