@@ -1,0 +1,94 @@
+.game-main {
+    height: 100vh;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    background: linear-gradient(to right, #353535, #3b6497);
+}
+
+.game-sidebar {
+    height: 100vh;
+    width: 275px;
+    background: burlywood;
+    position: fixed;
+    right: 0;
+    display: flex;
+    flex-direction: column;
+}
+
+.sidebar-top {
+    height: 50%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.sidebar-bottom {
+    height: 50%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    overflow-y: scroll;
+}
+
+.game-bottom {
+    height: 100px;
+    width: calc(100% - 275px);
+    position: fixed;
+    bottom: 0;
+    background: brown;
+}
+
+.game-map {
+    height: 640px;
+    width: 1000px;
+    border: 1px solid black;
+    transform: perspective(50em) rotateX(25deg);
+    margin-top: -40px;
+    margin-left: 130px;
+    display: flex;
+    flex-wrap: wrap;
+    background: #fff;
+}
+
+.tile {
+    height: 45.5px;
+    width: 66.53px;
+    border: 1px solid white;
+}
+
+.tile:hover {
+    opacity: 0.5;
+}
+
+.grass {
+    background: limegreen;
+}
+
+.sand {
+    background: #cfcf50;
+}
+
+.water {
+    background: cornflowerblue;
+}
+
+.forest {
+    background: darkgreen;
+}
+
+.mountain {
+    background: slategrey;
+}
+
+.cave {
+    background: #A48364;
+}
+
+.ice {
+    background: lightblue;
+}
+
+.snow {
+    background: #dfe9ff;
+}
