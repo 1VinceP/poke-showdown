@@ -62,6 +62,8 @@ class Game extends Component {
                     : targetName === this.props.player_2.who ? this.props.player_2
                     : targetName === this.props.player_3.who ? this.props.player_3
                     : targetName === this.props.player_4.who ? this.props.player_4
+                    : targetName === this.props.player_5.who ? this.props.player_5
+                    : targetName === this.props.player_6.who ? this.props.player_6
                     : null;
         let ground = document.getElementById( `${player.coords.x},${player.coords.y}` ).className.split(' ')[1];
         if( action === 'attack' && e.target.style.border.split(' ')[2] === 'red' ) {
@@ -74,6 +76,10 @@ class Game extends Component {
                     this.launchAttack( this.props.player_3, this.state.attack, ground );
                 if ( document.getElementsByClassName( 'tile' ).player_4.style.border.split(' ')[2] === 'red' )
                     this.launchAttack( this.props.player_4, this.state.attack, ground );
+                if ( document.getElementsByClassName( 'tile' ).player_5.style.border.split(' ')[2] === 'red' )
+                    this.launchAttack( this.props.player_5, this.state.attack, ground );
+                if ( document.getElementsByClassName( 'tile' ).player_6.style.border.split(' ')[2] === 'red' )
+                    this.launchAttack( this.props.player_6, this.state.attack, ground );
             }
             else if( target ) {
                 this.launchAttack( target, this.state.attack, ground );
@@ -169,7 +175,7 @@ class Game extends Component {
     // Map over row values and assign classNames, styles  and images based on content
     // Assign tile coords to tile id
     createRow( y ) {
-        const { player_1, player_2, player_3, player_4 } = this.props
+        const { player_1, player_2, player_3, player_4, player_5, player_6 } = this.props
 
         return this.battlefield[y].map( (item, x) => {
             let environment = item === 0 ? 'field'
@@ -211,7 +217,15 @@ class Game extends Component {
             else if( player_4.coords.y === y && player_4.coords.x === x ) {
                 image = player_4.image;
                 name = 'player_4'
-            };
+            }
+            else if( player_5.coords.y === y && player_5.coords.x === x ) {
+                image = player_5.image;
+                name = 'player_5'
+            }
+            else if( player_6.coords.y === y && player_6.coords.x === x ) {
+                image = player_6.image;
+                name = 'player_6'
+            }
 
             return (
                 <img
@@ -240,7 +254,7 @@ class Game extends Component {
         } );
 
         let combatLogs = this.state.combatLogs.map( (log, i) => {
-            return <p key={i}>{log}<hr /></p>
+            return <div key={i}>{log}<hr /></div>
         } );
 
         return (
@@ -282,7 +296,7 @@ class Game extends Component {
 }
 
 function mapStateToProps( state ) {
-    const { turn, playerCount, action, player_1, player_2, player_3, player_4 } = state.game;
+    const { turn, playerCount, action, player_1, player_2, player_3, player_4, player_5, player_6 } = state.game;
 
     return {
         turn,
@@ -291,7 +305,9 @@ function mapStateToProps( state ) {
         player_1,
         player_2,
         player_3,
-        player_4
+        player_4,
+        player_5,
+        player_6
     };
 }
 

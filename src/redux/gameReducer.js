@@ -1,5 +1,5 @@
 const initialState = {
-    playerCount: 4,
+    playerCount: 2,
     turn: 'player_1',
     action: null,
 
@@ -20,6 +20,16 @@ const initialState = {
     },
     player_4: {
         coords: { x: 1, y: 1 }, // { x: 14, y: 13 }
+        attacks: [],
+        who: 'player_4'
+    },
+    player_5: {
+        coords: { x: 0, y: 2 },
+        attacks: [],
+        who: 'player_4'
+    },
+    player_6: {
+        coords: { x: 1, y: 2 },
         attacks: [],
         who: 'player_4'
     },
@@ -50,6 +60,7 @@ const END_TURN = 'END_TURN'
     , PLAYER_KO = 'PLAYER_KO'
     , SET_STATUS_EFFECT = 'SET_STATUS_EFFECT'
     , SET_STAT_CHANGE = 'SET_STAT_CHANGE'
+    , SET_PLAYER_COUNT = 'SET_PLAYER_COUNT'
 
 export default ( state = initialState, action ) => {
 
@@ -130,6 +141,12 @@ export default ( state = initialState, action ) => {
                     ...state[action.payload.player],
                     [action.payload.stat]: action.payload.change
                 }
+            }
+
+        case SET_PLAYER_COUNT:
+            return {
+                ...state,
+                playerCount: action.payload
             }
 
         default:
@@ -215,7 +232,10 @@ export function setStatChange( player, stat, statChange ) {
     let change = player[stat];
 
     if( stat === 'speed' && player.speed > 1 && player.speed < 7 ) {
-        change = player[stat] += statChange;
+        change = player.speed += statChange;
+    }
+    else if( stat === 'hp' ) {
+        change = player.hp - ( player.starting_hp / statChange )
     }
     else if( player[stat] > player['starting_' + stat] / 2 || player[stat] < player['starting_' + stat] * 1.5 ) {
         change = player[stat] + ( player[stat] / statChange );
@@ -224,5 +244,13 @@ export function setStatChange( player, stat, statChange ) {
     return {
         type: SET_STAT_CHANGE,
         payload: { player: player.who, stat, change }
+    }
+};
+
+export function setPlayerCount( count ) {
+
+    return {
+        type: SET_PLAYER_COUNT,
+        payload: count
     }
 };
